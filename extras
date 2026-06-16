@@ -1,0 +1,41 @@
+Delegation Request
+       ↓
+Parent VC Validation
+       ↓
+Permission Subset Validation
+       ↓
+Purpose Validation
+       ↓
+PIP Context Retrieval
+       ↓
+PDP Evaluation
+       ↓
+Issuer Approval
+       ↓
+JIT VC Issuance
+       ↓
+Subagent Receives VC
+
+
+
+Parent Agent
+       ↓
+Delegation Request
+       ↓
+PDP
+       ↓
+Delegation Approved
+       ↓
+Issuer Creates New VC
+       ↓
+Subject = SubAgent DID
+       ↓
+Permissions = Delegated Subset
+       ↓
+Purpose = Delegation Purpose
+       ↓
+Short Expiry
+       ↓
+Issuer Signs VC
+       ↓
+SubAgent Receives VC
