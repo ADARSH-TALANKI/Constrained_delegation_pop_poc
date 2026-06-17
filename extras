@@ -39,3 +39,91 @@ Short Expiry
 Issuer Signs VC
        ↓
 SubAgent Receives VC
+
+
+import json :  is used to convert python dictionary to string.
+
+
+PoP Flow
+Resource Server
+      ↓
+Generate Challenge
+      ↓
+Send Challenge
+      ↓
+SubAgent Signs Challenge
+      ↓
+Return Signature
+      ↓
+Verify Using Agent Public Key
+      ↓
+Access Granted
+
+
+
+What Will The Demo Look Like?
+Parent Agent
+      ↓
+Delegates read_logs
+      ↓
+SubAgent gets VC
+      ↓
+SubAgent requests read_logs
+      ↓
+VC Verified
+      ↓
+PoP Verified
+      ↓
+Access Granted
+
+
+Agent Identity (DID)
+        ↓
+Issuer Creates VC
+        ↓
+Issuer Signs VC
+        ↓
+Parent Agent Gets VC
+        ↓
+Delegation Request
+        ↓
+PAP + PIP + PDP
+        ↓
+Delegated VC Issued
+        ↓
+SubAgent Receives VC
+        ↓
+Resource Request
+        ↓
+Revocation Check
+        ↓
+VC Verification
+        ↓
+Permission Check
+        ↓
+PoP Challenge
+        ↓
+PoP Verification
+        ↓
+Access Granted / Denied
+
+
+Current Architecture Status
+✅ DID Generation
+✅ Key Pair Generation
+✅ VC Creation
+✅ Issuer Signing
+✅ VC Verification
+✅ PAP
+✅ PIP
+✅ PDP
+✅ Constrained Delegation
+✅ PoP
+✅ Resource Server
+✅ Revocation
+
+⬜ Persistent Issuer Keys
+⬜ Persistent Revocation Registry
+⬜ Streamlit UI
+⬜ DIDKit Integration
+⬜ CrewAI / Real Agent Spawning

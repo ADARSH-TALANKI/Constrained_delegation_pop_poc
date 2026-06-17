@@ -35,34 +35,30 @@ def verify_vc(vc, issuer_public_key):
     except BadSignatureError:
 
         return False
-    
+
 
 if __name__ == "__main__":
 
- from credentials.issuer import IssuerAuthority
-issuer = IssuerAuthority()
-vc = issuer.issue_parent_vc(
-    "did:agent:test123"
-)
-print("\n===== ORIGINAL VC =====")
+    from credentials.issuer import IssuerAuthority
+    issuer = IssuerAuthority()
+    vc = issuer.issue_parent_vc(
+        "did:agent:test123"
+    )
+    print("\n===== ORIGINAL VC =====")
+    result = verify_vc(
+        vc,
+        issuer.public_key
+    )
+    print("VC VALID:", result)
 
-result = verify_vc(
-    vc,
-    issuer.public_key
-)
-print("VC VALID:", result)
+    # ATTACK
 
-# ATTACK
-
-vc["permissions"].append(
-    "block_ip"
-)
-
-print("\n===== TAMPERED VC =====")
-
-result = verify_vc(
-    vc,
-    issuer.public_key
-)
-
-print("VC VALID:", result)
+    vc["permissions"].append(
+        "block_ip"
+    )
+    print("\n===== TAMPERED VC =====")
+    result = verify_vc(
+        vc,
+        issuer.public_key
+    )
+    print("VC VALID:", result)
