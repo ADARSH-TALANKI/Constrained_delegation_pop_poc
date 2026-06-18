@@ -1,5 +1,6 @@
 # print("I AM THE FILE BEING EXECUTED")
 from policies.pdp import evaluate_request
+from agents.parent_agent import ParentAgent
 from agents.subagent import SubAgent
 from credentials.issuer import IssuerAuthority
 from verification.vc_verifier import verify_vc
@@ -95,13 +96,21 @@ if __name__ == "__main__":
 
     issuer = IssuerAuthority()
 
-    # Parent VC
+    # Create Parent Agent
 
-    parent_vc = issuer.issue_parent_vc(
-        "did:agent:parent123"
+    parent_agent = ParentAgent()
+
+    # Bind VC to Parent Agent
+
+    parent_agent.vc = issuer.issue_parent_vc(
+        parent_agent.did
     )
 
-    # SubAgent
+    parent_agent.permissions = (
+        parent_agent.vc["permissions"]
+    )
+
+    # Create SubAgent
 
     subagent = SubAgent()
 
@@ -113,7 +122,7 @@ if __name__ == "__main__":
     # Delegation
 
     result, reason = perform_delegation(
-        parent_vc=parent_vc,
+        parent_vc=parent_agent.vc,
         requested_permissions=requested_permissions,
         purpose="Incident Investigation",
         context_name="context_2",
@@ -127,6 +136,10 @@ if __name__ == "__main__":
     print("REASON :", reason)
 
     if result:
+
+        print("\n=== PARENT AGENT ===")
+
+        parent_agent.display_info()
 
         print("\n=== SUBAGENT VC ===")
 
@@ -148,15 +161,9 @@ if __name__ == "__main__":
 
         print("\n===== NORMAL ACCESS TEST =====")
 
-        print(
-            "RESULT :",
-            access_result
-        )
+        print("RESULT :", access_result)
 
-        print(
-            "REASON :",
-            access_reason
-        )
+        print("REASON :", access_reason)
 
         # ----------------------------
         # TEST 2 : REVOKE VC
@@ -187,12 +194,6 @@ if __name__ == "__main__":
             "\n===== ACCESS AFTER REVOCATION ====="
         )
 
-        print(
-            "RESULT :",
-            access_result
-        )
+        print("RESULT :", access_result)
 
-        print(
-            "REASON :",
-            access_reason
-        )
+        print("REASON :", access_reason)
